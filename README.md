@@ -4,6 +4,12 @@ a Stripe wrapper for Elixir
 
 ## Usage
 
+Add the following to your dependencies in your mix file:
+
+```elixir
+{ :stripe, github: "slogsdon/stripe-elixir" }
+```
+
 > ##### Note
 > stripe-elixir requires the `STRIPE_SECRET_KEY` environment variable set to a 
 > valid API key associated with your Stripe account.
