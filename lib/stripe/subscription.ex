@@ -113,7 +113,7 @@ defrecord Stripe.Subscription,
     ended_at = Stripe.Util.datetime_from_timestamp data[:ended_at]
     trial_end = Stripe.Util.datetime_from_timestamp data[:trial_end]
     trial_start = Stripe.Util.datetime_from_timestamp data[:trial_start]
-    Stripe.InvoiceItem.new(
+    Stripe.Subscription.new(
       id: data[:id],
       object: data[:object],
       cancel_at_period_end: data[:cancel_at_period_end],
