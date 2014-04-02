@@ -21,7 +21,7 @@ defrecord Stripe.Plan,
   @type interval              :: binary
   @type interval_count        :: pos_integer
   @type name                  :: binary
-  @type metadate              :: Keyword.t
+  @type metadata              :: Keyword.t
   @type trial_period_days     :: pos_integer
   @type statement_description :: binary
 
