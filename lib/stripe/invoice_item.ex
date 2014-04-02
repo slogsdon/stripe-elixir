@@ -14,12 +14,12 @@ defrecord Stripe.InvoiceItem,
 
   @type id           :: binary
   @type object       :: binary
-  @type livemode     :: nil
-  @type amount       :: nil
+  @type livemode     :: boolean
+  @type amount       :: pos_integer
   @type currency     :: binary
   @type customer     :: binary
   @type date         :: {{1970..10000, 1..12, 1..31}, {0..23, 0..59, 0..59}}
-  @type proration    :: nil
+  @type proration    :: boolean
   @type description  :: binary
   @type invoice      :: binary
   @type metadata     :: Keyword.t
