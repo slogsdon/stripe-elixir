@@ -10,4 +10,7 @@ defmodule Stripe.Util do
     {{year, month, day}, {hour, minutes, seconds}} = :calendar.gregorian_seconds_to_datetime ts
     {{year + 1970, month, day}, {hour, minutes, seconds}}
   end
+  def datetime_from_timestamp(nil) do
+    datetime_from_timestamp 0
+  end
 end
