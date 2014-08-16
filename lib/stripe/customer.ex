@@ -1,49 +1,4 @@
-defrecord Stripe.Customer,
-  id: nil,
-  object: "customer",
-  livemode: nil,
-  cards: nil,
-  created: nil,
-  account_balance: nil,
-  currency: nil,
-  default_card: nil,
-  delinquent: nil,
-  description: nil,
-  discount: nil,
-  email: nil,
-  metadata: nil,
-  subscriptions: nil do
-
-  @type id              :: binary
-  @type object          :: binary
-  @type livemode        :: boolean
-  @type cards           :: [] #[Stripe.Card.t]
-  @type created         :: {{1970..10000, 1..12, 1..31}, {0..23, 0..59, 0..59}}
-  @type account_balance :: integer
-  @type currency        :: binary
-  @type default_card    :: binary
-  @type delinquent      :: boolean
-  @type description     :: binary
-  @type discount        :: binary # Stripe.Discount.t
-  @type email           :: binary
-  @type metadata        :: Keyword.t
-  @type subscriptions   :: [Stripe.Subscripton.t]
-
-  record_type id: id,
-              object: object,
-              livemode: livemode,
-              cards: cards,
-              created: created,
-              account_balance: account_balance,
-              currency: currency,
-              default_card: default_card,
-              delinquent: delinquent,
-              description: description,
-              discount: discount,
-              email: email,
-              metadata: metadata,
-              subscriptions: subscriptions
-
+defmodule Stripe.Customer do
   @moduledoc """
   ## Attributes
 
@@ -75,13 +30,60 @@ defrecord Stripe.Customer,
   - `subscriptions` - `List` - The customer’s current subscriptions, if any
   """
 
+  defstruct id: nil,
+            object: "customer",
+            livemode: nil,
+            cards: nil,
+            created: nil,
+            account_balance: nil,
+            currency: nil,
+            default_card: nil,
+            delinquent: nil,
+            description: nil,
+            discount: nil,
+            email: nil,
+            metadata: nil,
+            subscriptions: nil
+
+  @type id              :: binary
+  @type object          :: binary
+  @type livemode        :: boolean
+  @type cards           :: [] #[Stripe.Card.t]
+  @type created         :: {{1970..10000, 1..12, 1..31}, {0..23, 0..59, 0..59}}
+  @type account_balance :: integer
+  @type currency        :: binary
+  @type default_card    :: binary
+  @type delinquent      :: boolean
+  @type description     :: binary
+  @type discount        :: binary # Stripe.Discount.t
+  @type email           :: binary
+  @type metadata        :: Keyword.t
+  @type subscriptions   :: [Stripe.Subscripton.t]
+
+  @type t :: %Stripe.Customer{
+    id: id,
+    object: object,
+    livemode: livemode,
+    cards: cards,
+    created: created,
+    account_balance: account_balance,
+    currency: currency,
+    default_card: default_card,
+    delinquent: delinquent,
+    description: description,
+    discount: discount,
+    email: email,
+    metadata: metadata,
+    subscriptions: subscriptions
+  }
+
   def from_keyword(data) do
-    datetime = Stripe.Util.datetime_from_timestamp data[:date]
-    Stripe.Customer.new(
+    datetime = Stripe.Util.datetime_from_timestamp data[:created]
+    %Stripe.Customer{
       id: data[:id],
       object: data[:object],
       cards: data[:cards],
-      created: data[:created],
+      created: datetime,
       account_balance: data[:account_balance],
       currency: data[:currency],
       default_card: data[:default_card],
@@ -91,6 +93,6 @@ defrecord Stripe.Customer,
       email: data[:email],
       metadata: data[:metadata],
       subscriptions: data[:subscriptions]
-    )
+    }
   end
 end

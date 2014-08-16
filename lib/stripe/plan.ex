@@ -1,43 +1,4 @@
-defrecord Stripe.Plan,
-  id: nil,
-  object: "plan",
-  livemode: nil,
-  amount: nil,
-  created: nil,
-  currency: nil,
-  interval: nil,
-  interval_count: nil,
-  name: nil,
-  metadata: nil,
-  trial_period_days: nil,
-  statement_description: nil do
-
-  @type id                    :: binary
-  @type object                :: binary
-  @type livemode              :: boolean
-  @type amount                :: pos_integer
-  @type created               :: {{1970..10000, 1..12, 1..31}, {0..23, 0..59, 0..59}}
-  @type currency              :: binary
-  @type interval              :: binary
-  @type interval_count        :: pos_integer
-  @type name                  :: binary
-  @type metadata              :: Keyword.t
-  @type trial_period_days     :: pos_integer
-  @type statement_description :: binary
-
-  record_type id: id,
-              object: object,
-              livemode: livemode,
-              amount: amount,
-              created: created,
-              currency: currency,
-              interval: interval,
-              interval_count: interval_count,
-              name: name,
-              metadata: metadata,
-              trial_period_days: trial_period_days,
-              statement_description: statement_description
-
+defmodule Stripe.Plan do
   @doc """
   ## Attributes
 
@@ -55,9 +16,50 @@ defrecord Stripe.Plan,
   - `statement_description` - `String` - Extra information about a charge for the customer’s credit card statement.
   """
 
+  defstruct id: nil,
+            object: "plan",
+            livemode: nil,
+            amount: nil,
+            created: nil,
+            currency: nil,
+            interval: nil,
+            interval_count: nil,
+            name: nil,
+            metadata: nil,
+            trial_period_days: nil,
+            statement_description: nil
+
+  @type id                    :: binary
+  @type object                :: binary
+  @type livemode              :: boolean
+  @type amount                :: pos_integer
+  @type created               :: {{1970..10000, 1..12, 1..31}, {0..23, 0..59, 0..59}}
+  @type currency              :: binary
+  @type interval              :: binary
+  @type interval_count        :: pos_integer
+  @type name                  :: binary
+  @type metadata              :: Keyword.t
+  @type trial_period_days     :: pos_integer
+  @type statement_description :: binary
+
+  @type t :: %Stripe.Plan{
+    id: id,
+    object: object,
+    livemode: livemode,
+    amount: amount,
+    created: created,
+    currency: currency,
+    interval: interval,
+    interval_count: interval_count,
+    name: name,
+    metadata: metadata,
+    trial_period_days: trial_period_days,
+    statement_description: statement_description
+  }
+
   def from_keyword(data) do
     created = Stripe.Util.datetime_from_timestamp data[:created]
-    Stripe.Plan.new(
+    %Stripe.Plan{
       id: data[:id],
       object: data[:object],
       livemode: data[:livemode],
@@ -70,6 +72,6 @@ defrecord Stripe.Plan,
       metadata: data[:metadata],
       trial_period_days: data[:trial_period_days],
       statement_description: data[:statement_description]
-    )
+    }
   end
 end

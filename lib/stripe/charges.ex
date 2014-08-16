@@ -5,6 +5,8 @@ defmodule Stripe.Charges do
   are identified by a unique random ID.
   """
 
+  @endpoint "charges"
+
   @doc """
   To charge a credit card, you create a new charge object. If your API key is
   in test mode, the supplied card won't actually be charged, though 
@@ -82,6 +84,6 @@ defmodule Stripe.Charges do
   passed incorrect CVC and address information.
   """
   def create(params) do
-    Stripe.make_request :post, "charges", params
+    Stripe.make_request :post, @endpoint, params
   end
 end

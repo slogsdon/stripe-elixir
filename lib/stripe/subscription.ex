@@ -1,55 +1,4 @@
-defrecord Stripe.Subscription,
-  id: nil,
-  object: "subscription",
-  cancel_at_period_end: nil,
-  customer: nil,
-  plan: nil,
-  quantity: nil,
-  start: nil,
-  status: nil,
-  application_fee_percent: nil,
-  canceled_at: nil,
-  current_period_end: nil,
-  current_period_start: nil,
-  discount: nil,
-  ended_at: nil,
-  trial_end: nil,
-  trial_start: nil do
-
-  @type id                      :: binary
-  @type object                  :: binary
-  @type cancel_at_period_end    :: boolean
-  @type customer                :: binary
-  @type plan                    :: Keyword.t #| Stripe.Plan.t
-  @type quantity                :: pos_integer
-  @type start                   :: {{1970..10000, 1..12, 1..31}, {0..23, 0..59, 0..59}}
-  @type status                  :: binary
-  @type application_fee_percent :: float
-  @type canceled_at             :: {{1970..10000, 1..12, 1..31}, {0..23, 0..59, 0..59}}
-  @type current_period_end      :: {{1970..10000, 1..12, 1..31}, {0..23, 0..59, 0..59}}
-  @type current_period_start    :: {{1970..10000, 1..12, 1..31}, {0..23, 0..59, 0..59}}
-  @type discount                :: Keyword.t #| Stripe.Discount.t
-  @type ended_at                :: {{1970..10000, 1..12, 1..31}, {0..23, 0..59, 0..59}}
-  @type trial_end               :: {{1970..10000, 1..12, 1..31}, {0..23, 0..59, 0..59}}
-  @type trial_start             :: {{1970..10000, 1..12, 1..31}, {0..23, 0..59, 0..59}}
-
-  record_type id: id,
-              object: object,
-              cancel_at_period_end: cancel_at_period_end,
-              customer: customer,
-              plan: plan,
-              quantity: quantity,
-              start: start,
-              status: status,
-              application_fee_percent: application_fee_percent,
-              canceled_at: canceled_at,
-              current_period_end: current_period_end,
-              current_period_start: current_period_start,
-              discount: discount,
-              ended_at: ended_at,
-              trial_end: trial_end,
-              trial_start: trial_start
-
+defmodule Stripe.Subscription do
   @moduledoc """
   ## Attributes
   
@@ -105,6 +54,59 @@ defrecord Stripe.Subscription,
       beginning of that trial.
   """
 
+  defstruct id: nil,
+            object: "subscription",
+            cancel_at_period_end: nil,
+            customer: nil,
+            plan: nil,
+            quantity: nil,
+            start: nil,
+            status: nil,
+            application_fee_percent: nil,
+            canceled_at: nil,
+            current_period_end: nil,
+            current_period_start: nil,
+            discount: nil,
+            ended_at: nil,
+            trial_end: nil,
+            trial_start: nil
+
+  @type id                      :: binary
+  @type object                  :: binary
+  @type cancel_at_period_end    :: boolean
+  @type customer                :: binary
+  @type plan                    :: Keyword.t #| Stripe.Plan.t
+  @type quantity                :: pos_integer
+  @type start                   :: {{1970..10000, 1..12, 1..31}, {0..23, 0..59, 0..59}}
+  @type status                  :: binary
+  @type application_fee_percent :: float
+  @type canceled_at             :: {{1970..10000, 1..12, 1..31}, {0..23, 0..59, 0..59}}
+  @type current_period_end      :: {{1970..10000, 1..12, 1..31}, {0..23, 0..59, 0..59}}
+  @type current_period_start    :: {{1970..10000, 1..12, 1..31}, {0..23, 0..59, 0..59}}
+  @type discount                :: Keyword.t #| Stripe.Discount.t
+  @type ended_at                :: {{1970..10000, 1..12, 1..31}, {0..23, 0..59, 0..59}}
+  @type trial_end               :: {{1970..10000, 1..12, 1..31}, {0..23, 0..59, 0..59}}
+  @type trial_start             :: {{1970..10000, 1..12, 1..31}, {0..23, 0..59, 0..59}}
+
+  @type t :: %Stripe.Subscription{
+    id: id,
+    object: object,
+    cancel_at_period_end: cancel_at_period_end,
+    customer: customer,
+    plan: plan,
+    quantity: quantity,
+    start: start,
+    status: status,
+    application_fee_percent: application_fee_percent,
+    canceled_at: canceled_at,
+    current_period_end: current_period_end,
+    current_period_start: current_period_start,
+    discount: discount,
+    ended_at: ended_at,
+    trial_end: trial_end,
+    trial_start: trial_start
+  }
+
   def from_keyword(data) do
     start = Stripe.Util.datetime_from_timestamp data[:start]
     canceled_at = Stripe.Util.datetime_from_timestamp data[:canceled_at]
@@ -113,7 +115,7 @@ defrecord Stripe.Subscription,
     ended_at = Stripe.Util.datetime_from_timestamp data[:ended_at]
     trial_end = Stripe.Util.datetime_from_timestamp data[:trial_end]
     trial_start = Stripe.Util.datetime_from_timestamp data[:trial_start]
-    Stripe.Subscription.new(
+    %Stripe.Subscription{
       id: data[:id],
       object: data[:object],
       cancel_at_period_end: data[:cancel_at_period_end],
@@ -130,6 +132,6 @@ defrecord Stripe.Subscription,
       ended_at: ended_at,
       trial_end: trial_end,
       trial_start: trial_start
-    )
+    }
   end
 end

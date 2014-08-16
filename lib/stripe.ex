@@ -4,7 +4,7 @@ defmodule Stripe do
   """
 
   # Let's build on top of HTTPoison
-  use Application.Behaviour
+  use Application
   use HTTPoison.Base
 
   def start(_type, _args) do
@@ -48,7 +48,7 @@ defmodule Stripe do
     * body - request body
   Returns dict
   """
-  def make_request(method, endpoint, body // [], headers // [], options // []) do
+  def make_request(method, endpoint, body \\ [], headers \\ [], options \\ []) do
     rb = Enum.map(body, &url_encode_keyvalue(&1))
       |> Enum.join("&")
     rh = req_headers
@@ -77,7 +77,7 @@ defmodule Stripe do
   end
 
   defp url_encode_keyvalue({k, v}) do
-    key = atom_to_binary(k) 
+    key = Atom.to_string(k) 
     "#{key}=#{v}"
   end
 end

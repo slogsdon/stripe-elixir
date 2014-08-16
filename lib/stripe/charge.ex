@@ -1,70 +1,4 @@
-defrecord Stripe.Charge,
-  id: nil,
-  object: "charge",
-  livemode: nil,
-  amount: nil,
-  captured: nil,
-  card: nil,
-  created: nil,
-  currency: nil,
-  paid: nil,
-  refunded: nil,
-  refunds: nil,
-  amount_refunded: nil,
-  balance_transaction: nil,
-  customer: nil,
-  description: nil,
-  dispute: nil,
-  failure_code: nil,
-  failure_message: nil,
-  invoice: nil,
-  metadata: nil,
-  statement_description: nil do
-
-  @type id                    :: binary
-  @type object                :: binary
-  @type livemode              :: boolean
-  @type amount                :: pos_integer
-  @type captured              :: boolean
-  @type card                  :: binary
-  @type created               :: {{1970..10000, 1..12, 1..31}, {0..23, 0..59, 0..59}}
-  @type currency              :: binary
-  @type paid                  :: boolean
-  @type refunded              :: boolean
-  @type refunds               :: Keyword.t
-  @type amount_refunded       :: pos_integer
-  @type balance_transaction   :: binary
-  @type customer              :: binary
-  @type description           :: binary
-  @type dispute               :: Keyword.t
-  @type failure_code          :: binary
-  @type failure_message       :: binary
-  @type invoice               :: binary
-  @type metadata              :: Keyword.t
-  @type statement_description :: binary
-
-  record_type id: id,
-              object: object,
-              livemode: livemode,
-              amount: amount,
-              captured: captured,
-              card: card,
-              created: created,
-              currency: currency,
-              paid: paid,
-              refunded: refunded,
-              refunds: refunds,
-              amount_refunded: amount_refunded,
-              balance_transaction: balance_transaction,
-              customer: customer,
-              description: description,
-              dispute: dispute,
-              failure_code: failure_code,
-              failure_message: failure_message,
-              invoice: invoice,
-              metadata: metadata,
-              statement_description: statement_description
-
+defmodule Stripe.Charge do
   @moduledoc """
   ## Attributes
 
@@ -109,4 +43,72 @@ defrecord Stripe.Charge,
   - `statement_description` - `String` - Extra information about a charge for 
       the customer’s credit card statement.
   """
+  
+  defstruct id: nil,
+            object: "charge",
+            livemode: nil,
+            amount: nil,
+            captured: nil,
+            card: nil,
+            created: nil,
+            currency: nil,
+            paid: nil,
+            refunded: nil,
+            refunds: nil,
+            amount_refunded: nil,
+            balance_transaction: nil,
+            customer: nil,
+            description: nil,
+            dispute: nil,
+            failure_code: nil,
+            failure_message: nil,
+            invoice: nil,
+            metadata: nil,
+            statement_description: nil
+
+  @type id                    :: binary
+  @type object                :: binary
+  @type livemode              :: boolean
+  @type amount                :: pos_integer
+  @type captured              :: boolean
+  @type card                  :: binary
+  @type created               :: {{1970..10000, 1..12, 1..31}, {0..23, 0..59, 0..59}}
+  @type currency              :: binary
+  @type paid                  :: boolean
+  @type refunded              :: boolean
+  @type refunds               :: Keyword.t
+  @type amount_refunded       :: pos_integer
+  @type balance_transaction   :: binary
+  @type customer              :: binary
+  @type description           :: binary
+  @type dispute               :: Keyword.t
+  @type failure_code          :: binary
+  @type failure_message       :: binary
+  @type invoice               :: binary
+  @type metadata              :: Keyword.t
+  @type statement_description :: binary
+
+  @type t :: %Stripe.Charge{
+    id: id,
+    object: object,
+    livemode: livemode,
+    amount: amount,
+    captured: captured,
+    card: card,
+    created: created,
+    currency: currency,
+    paid: paid,
+    refunded: refunded,
+    refunds: refunds,
+    amount_refunded: amount_refunded,
+    balance_transaction: balance_transaction,
+    customer: customer,
+    description: description,
+    dispute: dispute,
+    failure_code: failure_code,
+    failure_message: failure_message,
+    invoice: invoice,
+    metadata: metadata,
+    statement_description: statement_description
+  }
 end

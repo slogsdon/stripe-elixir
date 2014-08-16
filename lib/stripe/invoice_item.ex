@@ -1,43 +1,4 @@
-defrecord Stripe.InvoiceItem,
-  id: nil,
-  object: "invoiceitem",
-  livemode: nil,
-  amount: nil,
-  currency: nil,
-  customer: nil,
-  date: nil,
-  proration: nil,
-  description: nil,
-  invoice: nil,
-  metadata: nil,
-  subscription: nil do
-
-  @type id           :: binary
-  @type object       :: binary
-  @type livemode     :: boolean
-  @type amount       :: pos_integer
-  @type currency     :: binary
-  @type customer     :: binary
-  @type date         :: {{1970..10000, 1..12, 1..31}, {0..23, 0..59, 0..59}}
-  @type proration    :: boolean
-  @type description  :: binary
-  @type invoice      :: binary
-  @type metadata     :: Keyword.t
-  @type subscription :: binary
-
-  record_type id: id,
-              object: object,
-              livemode: livemode,
-              amount: amount,
-              currency: currency,
-              customer: customer,
-              date: date,
-              proration: proration,
-              description: description,
-              invoice: invoice,
-              metadata: metadata,
-              subscription: subscription
-
+defmodule Stripe.InvoiceItem do
   @moduledoc """
   ## Attributes
 
@@ -60,9 +21,50 @@ defrecord Stripe.InvoiceItem,
       has been created for, if any.
   """
 
+  defstruct id: nil,
+            object: "invoiceitem",
+            livemode: nil,
+            amount: nil,
+            currency: nil,
+            customer: nil,
+            date: nil,
+            proration: nil,
+            description: nil,
+            invoice: nil,
+            metadata: nil,
+            subscription: nil
+
+  @type id           :: binary
+  @type object       :: binary
+  @type livemode     :: boolean
+  @type amount       :: pos_integer
+  @type currency     :: binary
+  @type customer     :: binary
+  @type date         :: {{1970..10000, 1..12, 1..31}, {0..23, 0..59, 0..59}}
+  @type proration    :: boolean
+  @type description  :: binary
+  @type invoice      :: binary
+  @type metadata     :: Keyword.t
+  @type subscription :: binary
+
+  @type t :: %Stripe.InvoiceItem{
+    id: id,
+    object: object,
+    livemode: livemode,
+    amount: amount,
+    currency: currency,
+    customer: customer,
+    date: date,
+    proration: proration,
+    description: description,
+    invoice: invoice,
+    metadata: metadata,
+    subscription: subscription
+  }
+
   def from_keyword(data) do
     datetime = Stripe.Util.datetime_from_timestamp data[:date]
-    Stripe.InvoiceItem.new(
+    %Stripe.InvoiceItem{
       id: data[:id],
       object: data[:object],
       livemode: data[:livemode],
@@ -75,6 +77,6 @@ defrecord Stripe.InvoiceItem,
       invoice: data[:invoice],
       metadata: data[:metadata],
       subscription: data[:subscription]
-    )
+    }
   end
 end

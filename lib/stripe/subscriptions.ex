@@ -124,7 +124,6 @@ defmodule Stripe.Subscriptions do
     subscription_id = params[:subscription_id]
     params = Keyword.drop params, [:customer_id, :subscription_id]
     obj = Stripe.make_request :post, "customers/#{customer_id}/subscriptions/#{subscription_id}", params
-    IO.inspect obj
     Stripe.Subscription.from_keyword obj
   end
 end

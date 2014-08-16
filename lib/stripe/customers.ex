@@ -6,6 +6,8 @@ defmodule Stripe.Customers do
   customers as well as a list of all your customers.
   """
 
+  @endpoint "customers"
+
   @doc """
   Creates a new customer object.
 
@@ -81,7 +83,7 @@ defmodule Stripe.Customers do
   full card details when retrieving the customer.
   """
   def create(params) do
-    obj = Stripe.make_request :post, "customers", params
+    obj = Stripe.make_request :post, @endpoint, params
     if obj[:object] do
       Enum.map obj, &Stripe.Customer.from_keyword(&1)
     else
