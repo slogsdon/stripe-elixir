@@ -73,7 +73,8 @@ defmodule Stripe do
   Returns binary
   """
   def key do
-    System.get_env "STRIPE_SECRET_KEY"
+    Application.get_env(:stripe, :secret_key) ||
+      System.get_env "STRIPE_SECRET_KEY"
   end
 
   defp url_encode_keyvalue({k, v}) do
