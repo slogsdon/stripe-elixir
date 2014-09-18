@@ -85,7 +85,7 @@ defmodule Stripe.Customers do
   def create(params) do
     obj = Stripe.make_request :post, @endpoint, params
     if obj[:object] do
-      Enum.map obj, &Stripe.Customer.from_keyword(&1)
+      Stripe.Customer.from_keyword(obj[:object])
     else
       []
     end
